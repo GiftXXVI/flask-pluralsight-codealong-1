@@ -1,6 +1,6 @@
 from typing import Counter
 from flask import Flask, request, redirect, url_for, render_template, abort, jsonify
-from model import db
+from model import db, save_db
 
 app = Flask(__name__)
 
@@ -36,6 +36,7 @@ def card_add():
             else:
                 item = {"question": question, "answer": answer}
                 db.append(item)
+                save_db()
                 return redirect(url_for('card_view', index=len(db)-1))
 
 
